@@ -9,9 +9,15 @@ function Exercises() {
     rest: '',
   });
 
-  const [exerciseList, setExerciseList] = useState(
-    JSON.parse(localStorage.getItem('exerciseList')) || []
-  );
+  const [exerciseList, setExerciseList] = useState([]);
+
+  useEffect(() => {
+    // Retrieve exerciseList from local storage when the component mounts
+    const storedExerciseList = JSON.parse(localStorage.getItem('exerciseList'));
+    if (storedExerciseList) {
+      setExerciseList(storedExerciseList);
+    }
+  }, []); // The empty dependency array ensures this runs only once
 
   const [editIndex, setEditIndex] = useState(null);
 
@@ -41,12 +47,13 @@ function Exercises() {
       // Add new exercise
       setExerciseList([...exerciseList, exerciseData]);
     }
+
     localStorage.setItem('exerciseList', JSON.stringify(exerciseList));
     setExerciseData({
       name: '',
-      sets: 4,
-      reps: 8,
-      rest: 2,
+      sets: '',
+      reps: '',
+      rest: '',
     });
     setEditIndex(null);
   };

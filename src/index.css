@@ -65,7 +65,7 @@ h3 {
 
 .container {
 	width: 100%;
-	max-width: 960px;
+	max-width: 70rem;
 	margin: 0 auto;
 	padding: 0 1rem;
 	text-align: center;
@@ -201,6 +201,10 @@ h3 {
 .btn.disabled {
   opacity: 0.2;
 	cursor: initial;
+}
+
+.btnIcon {
+  font-size: 0.8rem;
 }
 
 .form {

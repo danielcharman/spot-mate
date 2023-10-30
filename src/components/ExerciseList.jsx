@@ -1,16 +1,15 @@
+import { FaPen, FaTrash } from 'react-icons/fa'
+
 function ExerciseList({ exerciseList, onEdit, onDelete }) {
   return (
-
-
-
     <table className="table">
       <thead>
         <tr>
           <th style={{textAlign: 'left'}}>Exercise Name</th>
-          <th style={{width: '10rem'}}>Sets</th>
-          <th style={{width: '10rem'}}>Reps</th>
-          <th style={{width: '10rem'}}>Rest (Mins)</th>
-          <th style={{width: '5rem'}}></th>
+          <th style={{width: '8rem'}}>Sets</th>
+          <th style={{width: '8rem'}}>Reps</th>
+          <th style={{width: '8rem'}}>Rest (Mins)</th>
+          <th style={{width: '11rem'}}></th>
         </tr>
       </thead>
 
@@ -24,8 +23,12 @@ function ExerciseList({ exerciseList, onEdit, onDelete }) {
               <td>{exercise.rest}</td>
               <td>
                 <div className="btnGroup">
-                  <button className="btn btn-success" onClick={() => onEdit(index)}>Edit</button>
-                  <button className="btn btn-danger" onClick={() => onDelete(index)}>Delete</button>
+                  <button className="btn btn-success" onClick={() => onEdit(index)}>
+                    <FaPen className="btnIcon" />
+                  </button>
+                  <button className="btn btn-danger" onClick={() => onDelete(index)}>
+                    <FaTrash className="btnIcon" />
+                  </button>
                 </div>
               </td>
             </tr>
