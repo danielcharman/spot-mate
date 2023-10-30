@@ -1,0 +1,293 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+	--light-blue: #007bff;
+	--light-green: #28a745;
+	--light-red: #dc3545;
+	--light-grey: #dddddd;
+	--coal: #343a40;
+}
+
+#root {
+	height: 100%;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.link {
+	color: var(--light-blue);
+	font-weight: 700;
+}
+
+.link:hover {
+	border-bottom: 1px solid var(--light-blue);
+}
+
+body {
+	font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+}
+
+a {
+	text-decoration: none;
+}
+
+p {
+  	line-height: 1.7;
+}
+
+ul {
+  	list-style: none;
+}
+
+li {
+  	line-height: 2.2;
+}
+
+h1,
+h2,
+h3 {
+	font-weight: 600;
+	margin-bottom: 1rem;
+}
+
+.container {
+	width: 100%;
+	max-width: 960px;
+	margin: 0 auto;
+	padding: 0 1rem;
+	text-align: center;
+}
+
+.header {
+	background-color: var(--coal);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 100;
+	padding: 1rem;
+	-webkit-box-shadow: 0 10px 10px rgb(0 0 0 / 30%);
+	-moz-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 10px 10px rgb(0 0 0 / 30%);
+}
+
+.headerMenu {
+  display: flex;
+	cursor: pointer;
+}
+
+.headerMenuIcon {
+	color: white;
+	font-size: 1.5rem;
+	display: inline-block;
+}
+
+.headerMenuItems {
+	display: none;
+	position: fixed;
+	z-index: 90;
+	top: 3.5rem;
+	left: 0;
+	bottom: 0;
+	width: 20rem;
+	background-color: var(--light-grey);
+}
+
+.headerMenuItems.open {
+	display: block;
+}
+
+.headerMenuItem {
+	color: black;
+}
+
+.headerMenuItem a {
+	display: block;
+	color: inherit;
+	padding: 1rem;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.headerMenuItem a:hover {
+	background-color: #eee;
+	/* color: white; */
+}
+
+.headerMenuItem.active a {
+	background-color: var(--light-blue);
+	color: white;
+}
+
+.headerMenuItem.active .headerMenuItemIcon {
+	color: white;
+}
+
+.headerMenuItemIcon {
+	color: #999999;
+	font-size: 1rem;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 1rem;
+}
+
+.headerMenuItemLabel {
+	font-weight: 600;
+	font-size: 1rem;
+}
+
+.bodyWrapper {
+	display: flex;
+	margin-top: 80px;
+	padding-bottom: 50px;
+}
+
+.btnGroup {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-evenly;
+}
+
+.btnGroup * {
+  width: 100%;
+}
+
+.btn {
+  white-space: nowrap;
+	padding: 1rem 1.5rem;
+	background-color: var(--light-grey);
+	color: white;
+	border-radius: 0.5rem;
+	font-weight: 600;
+  font-size: inherit;
+	border: none;
+	cursor: pointer;
+	line-height: 1;
+	box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+}
+
+.btn:hover {
+	filter: brightness(70%);
+}
+
+.btn.btn-small {
+	padding: 0.5rem;
+}
+
+.btn.btn-success {
+	background-color: var(--light-green) !important;
+}
+
+.btn.btn-info {
+	background-color: var(--light-blue) !important;
+}
+
+.btn.btn-danger {
+	background-color: var(--light-red) !important;
+}
+
+.btn.disabled {
+  opacity: 0.2;
+	cursor: initial;
+}
+
+.form {
+	margin: auto;
+}
+
+.formGroup {
+
+}
+
+.formControl {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+	padding: 1rem;
+  font-size: inherit;
+  font-family: inherit;
+  border-radius: 0.5rem;
+	width: 100%;
+}
+
+.table {
+	width: 100%;
+  margin-bottom: 1rem;
+  border-collapse: collapse;
+  font-size: inherit;
+}
+
+.table th {
+  background-color: #ddd;
+  font-weight: 600;
+	padding: 1rem;
+  vertical-align: middle;
+  text-align: inherit;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.table td {
+  background-color: #eee;
+	padding: 1rem;
+  vertical-align: middle;
+  text-align: inherit;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.badge {
+	display: inline-block;
+  padding: 0 0.5rem;
+  font-size: 0.5rem;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border-radius: 0.5rem;
+  color: white;
+	margin-left: 0.5rem;
+	padding: 0.5rem;
+	line-height: 1;
+}
+
+.badge.badge-success {
+	background-color: var(--light-green);
+}
+
+.badge.badge-danger {
+	background-color: var(--light-red);
+}
+
+.badge.badge-normal {
+	background-color: var(--light-grey);
+}
+
+.badge.badge-info {
+	background-color: var(--light-blue);
+}
+
+.badge.badge-large {
+  font-size: 0.75rem;
+	font-weight: 600;
+}
+
+.pageTitle {
+	font-size: 3rem;
+	line-height: 1;
+	font-weight: 700;
+	/* text-transform: uppercase; */
+	letter-spacing: 0;
+	text-align: center;
+	margin: 2rem 0;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
