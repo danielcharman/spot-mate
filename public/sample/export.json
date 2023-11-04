@@ -1,0 +1,349 @@
+[
+  {
+    "name": "Full",
+    "exercises": [
+      {
+        "name": "Deadlift",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "40"
+      },
+      {
+        "name": "Dips",
+        "sets": "6",
+        "reps": "10",
+        "rest": "2",
+        "style": "standard",
+        "weight": "0"
+      },
+      {
+        "name": "Pull Ups",
+        "sets": "6",
+        "reps": "10",
+        "rest": "2",
+        "style": "standard",
+        "weight": "0"
+      },
+      {
+        "name": "Push Ups",
+        "sets": "6",
+        "reps": "10",
+        "rest": "2",
+        "style": "standard",
+        "weight": "0"
+      },
+      {
+        "name": "Wood Chops",
+        "sets": "6",
+        "reps": "10",
+        "rest": "2",
+        "style": "standard",
+        "weight": "0"
+      }
+    ]
+  },
+  {
+    "name": "Arms",
+    "exercises": [
+      {
+        "name": "Tricep Push Downs",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "20"
+      },
+      {
+        "name": "Overhead Tricep Extensions",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "10"
+      },
+      {
+        "name": "Tricep Dumbell Kickbacks",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "8"
+      },
+      {
+        "name": "Bicep EZ Curls",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "25"
+      },
+      {
+        "name": "Hammer Curls",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "10"
+      },
+      {
+        "name": "Concentration Curls",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "10"
+      }
+    ]
+  },
+  {
+    "name": "Back",
+    "exercises": [
+      {
+        "name": "Lat Pull Downs",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "30"
+      },
+      {
+        "name": "Seated Rows",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "30"
+      },
+      {
+        "name": "Single Arm Dumbell Rows",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "10"
+      },
+      {
+        "name": "Landmine Rows",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "20"
+      },
+      {
+        "name": "Shrugs",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "10"
+      },
+      {
+        "name": "Face Pulls",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "20"
+      }
+    ]
+  },
+  {
+    "name": "Chest",
+    "exercises": [
+      {
+        "name": "Dumbell Press",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "20.5"
+      },
+      {
+        "name": "Chest Flyes",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "11.5"
+      },
+      {
+        "name": "Hex Press",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "18"
+      },
+      {
+        "name": "Incline Dumbell Press",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "16"
+      },
+      {
+        "name": "Incline Chest Flyes",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "11.5"
+      },
+      {
+        "name": "Incline Hex Press",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "11.5"
+      }
+    ]
+  },
+  {
+    "name": "Core",
+    "exercises": [
+      {
+        "name": "Sit Ups",
+        "sets": "6",
+        "reps": "10",
+        "rest": "2",
+        "style": "standard",
+        "weight": "0"
+      },
+      {
+        "name": "Crunches",
+        "sets": "6",
+        "reps": "10",
+        "rest": "2",
+        "style": "standard",
+        "weight": "0"
+      },
+      {
+        "name": "V Ups",
+        "sets": "6",
+        "reps": "10",
+        "rest": "2",
+        "style": "standard",
+        "weight": "0"
+      },
+      {
+        "name": "Plank",
+        "sets": "6",
+        "reps": "60",
+        "rest": "2",
+        "style": "standard",
+        "weight": "0"
+      },
+      {
+        "name": "Shoulder Tap Plank",
+        "sets": "6",
+        "reps": "60",
+        "rest": "2",
+        "style": "standard",
+        "weight": "0"
+      },
+      {
+        "name": "Side Plank",
+        "sets": "6",
+        "reps": "60",
+        "rest": "2",
+        "style": "standard",
+        "weight": "0"
+      }
+    ]
+  },
+  {
+    "name": "Legs",
+    "exercises": [
+      {
+        "name": "Good Mornings",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "25"
+      },
+      {
+        "name": "Lunges",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "standard",
+        "weight": "0"
+      },
+      {
+        "name": "Squats",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "30"
+      },
+      {
+        "name": "Hip Thrusts",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "30"
+      },
+      {
+        "name": "Calf Raises",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "16"
+      }
+    ]
+  },
+  {
+    "name": "Shoulders",
+    "exercises": [
+      {
+        "name": "Overhead Press",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "25"
+      },
+      {
+        "name": "Seated Overhead Press",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "11.5"
+      },
+      {
+        "name": "Lateral Raises",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "6.5"
+      },
+      {
+        "name": "Front Raises",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "6.5"
+      },
+      {
+        "name": "Bent Over Flyes",
+        "sets": "6",
+        "reps": "8",
+        "rest": "2",
+        "style": "peak",
+        "weight": "6.5"
+      }
+    ]
+  }
+]

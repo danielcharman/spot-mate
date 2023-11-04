@@ -1,6 +1,7 @@
-import { FaPen, FaTrash } from 'react-icons/fa'
+import { FaPen, FaTrash, FaAngleUp, FaAngleDown } from 'react-icons/fa'
 
-function ExerciseList({ exerciseList, onEdit, onDelete }) {
+function ExerciseList({ exerciseList, onEdit, onDelete, onReorder }) {
+  // exerciseList.sort((a, b) => a.name.localeCompare(b.name));
   return (
     <table className="table">
       {/* <thead>
@@ -16,10 +17,26 @@ function ExerciseList({ exerciseList, onEdit, onDelete }) {
             <tr key={index}>
               <td style={{textAlign: 'left'}}>
                 <b>{exercise.name}</b><br/>
-                <small>{exercise.sets}/{exercise.reps}/{exercise.rest}/{exercise.style}/{exercise.weight}</small>
+                <small>{exercise.sets} sets | {exercise.reps} reps | {exercise.rest}mins | {exercise.style} | {(exercise.weight !== 0) ? exercise.weight + 'kg' : 'BW'}</small>
               </td>
-              <td style={{width: '7rem'}}>
+              <td style={{width: '10rem'}}>
                 <div className="btnGroup">
+                  {(index > 0) ?
+                      (
+                      <button className="btn">
+                        <FaAngleUp className="btnIcon" onClick={() => onReorder(index, index-1)} />
+                      </button>
+                      )
+                    : ''
+                  }
+                  {(index < exerciseList.length - 1) ?
+                      (
+                      <button className="btn">
+                        <FaAngleDown className="btnIcon" onClick={() => onReorder(index, index+1)} />
+                      </button>
+                      )
+                    : ''
+                  }
                   <button className="btn btn-success" onClick={() => onEdit(index)}>
                     <FaPen className="btnIcon" />
                   </button>

@@ -1,7 +1,8 @@
-import { FaPen, FaTrash } from 'react-icons/fa'
+import { FaPen, FaPlay, FaTrash } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
 function WorkoutList({ workoutList, onEdit, onDelete }) {
+  workoutList.sort((a, b) => a.name.localeCompare(b.name));
   return (
     <table className="table">
       {/* <thead>
@@ -16,9 +17,12 @@ function WorkoutList({ workoutList, onEdit, onDelete }) {
           {workoutList.map((workout, index) => (
             <tr key={index}>
               <td style={{textAlign: 'left'}}><b>{workout.name}</b></td>
-              <td style={{width: '7rem'}}>
+              <td style={{width: '9rem'}}>
                 <div className="btnGroup">
-                  <Link to={'/workouts/' + workout.name} className="btn btn-success" href={() => onEdit(index)}>
+                  <Link to={'/workouts/' + workout.name + '/session'} className="btn btn-info">
+                    <FaPlay className="btnIcon" />
+                  </Link>
+                  <Link to={'/workouts/' + workout.name} className="btn btn-success">
                     <FaPen className="btnIcon" />
                   </Link>
                   <button className="btn btn-danger" onClick={() => onDelete(index)}>

@@ -31,6 +31,12 @@ function HeaderMenu() {
             <span className='headerMenuItemLabel'>Workouts</span>
           </Link>
         </li>
+        <li className={'headerMenuItem ' + ((isCurrentRoute('/settings')) && 'active')}>
+          <Link to='/settings' onClick={onToggle}>
+            <FaDumbbell className='headerMenuItemIcon' />
+            <span className='headerMenuItemLabel'>Settings</span>
+          </Link>
+        </li>
       </ul>
     </div>
   )

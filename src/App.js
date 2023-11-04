@@ -7,7 +7,8 @@ import Header from './components/Header'
 import Overview from './pages/Overview'
 import Workouts from './pages/Workouts'
 import Workout from './pages/Workout'
-// import Exercises from './pages/Exercises'
+import Session from './pages/Session'
+import Settings from './pages/Settings'
 
 function App() {
 	return (
@@ -20,7 +21,8 @@ function App() {
 							<Route path='/' element={<Overview/>} />
 							<Route path='/workouts' element={<Workouts/>} />
               <Route path="/workouts/:workoutId" element={<Workout/>} />
-							{/* <Route path='/exercises' element={<Exercises/>} /> */}
+              <Route path="/workouts/:workoutId/session" element={<Session/>} />
+							<Route path='/settings' element={<Settings/>} />
 						</Routes>
 					</div>
 				</main>

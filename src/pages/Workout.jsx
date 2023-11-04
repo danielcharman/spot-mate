@@ -7,23 +7,30 @@ function Workout() {
 
   const [exerciseData, setExerciseData] = useState({
     name: '',
-    sets: '0',
-    reps: '0',
-    rest: '0',
+    sets: '6',
+    reps: '8',
+    rest: '2',
     style: 'standard',
     weight: '0',
   });
 
   const [exerciseList, setExerciseList] = useState([]);
 
-  useEffect(() => {
+
+
+  const getExerciseList = () => {
     // Retrieve exerciseList from local storage when the component mounts
     const storedExerciseList = JSON.parse(localStorage.getItem('workouts'));
     if (storedExerciseList) {
       const storedWorkout = findExercisesForWorkout(storedExerciseList, workoutId);
-      console.log('storedWorkout', storedWorkout);
-      setExerciseList(storedWorkout.exercises);
+      if(storedWorkout && storedWorkout.exercises) {
+        setExerciseList(storedWorkout.exercises);
+      }
     }
+  }
+
+  useEffect(() => {
+    getExerciseList()
   }, []); // The empty dependency array ensures this runs only once
 
   const [editIndex, setEditIndex] = useState(null);
@@ -35,15 +42,15 @@ function Workout() {
     }
   }, [editIndex, exerciseList]);
 
-
   const findExercisesForWorkout = (array, targetName) => {
     for (const [index, value] of array.entries()) {
-      if(value.name === targetName) {
+      if(value.name.trim() === targetName.trim()) {
         if(!value.exercises) value.exercises = [];
         return value;
       }
     }
   }
+
   const findAllWorkoutsExcept = (array, targetName) => {
     return array.filter(item => item.name !== targetName);
   }
@@ -76,9 +83,9 @@ function Workout() {
 
     setExerciseData({
       name: '',
-      sets: '0',
-      reps: '0',
-      rest: '0',
+      sets: '6',
+      reps: '8',
+      rest: '2',
       style: 'standard',
       weight: '0',
     });
@@ -91,6 +98,7 @@ function Workout() {
       var workouts = findAllWorkoutsExcept(storedExerciseList, workoutId);
       var storedWorkout = findExercisesForWorkout(storedExerciseList, workoutId);
       storedWorkout.exercises = exercises;
+
       const updatedWorkouts = [...workouts, storedWorkout]
       localStorage.setItem('workouts', JSON.stringify(updatedWorkouts));
     }
@@ -105,6 +113,19 @@ function Workout() {
     setExerciseList(updatedList);
     storeWorkoutExerciseData(updatedList);
   };
+
+  const handleReorder = (index, newIndex) => {
+    const updatedList = switchArrayItemsByIndex(exerciseList, index, newIndex)
+    setExerciseList(updatedList);
+    storeWorkoutExerciseData(updatedList);getExerciseList()
+  };
+
+  const switchArrayItemsByIndex = (array, index1, index2) => {
+    let temp = array[index1];
+    array[index1] = array[index2];
+    array[index2] = temp;
+    return array;
+  }
 
   return (
     <>
@@ -187,7 +208,7 @@ function Workout() {
           </button>
         </form>
 
-        <ExerciseList exerciseList={exerciseList} onEdit={handleEdit} onDelete={handleDelete} />
+        <ExerciseList exerciseList={exerciseList} onEdit={handleEdit} onDelete={handleDelete} onReorder={handleReorder} />
 
       </div>
     </>

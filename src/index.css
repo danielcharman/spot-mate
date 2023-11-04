@@ -59,8 +59,15 @@ li {
 h1,
 h2,
 h3 {
-	font-weight: 600;
+	font-weight: 700;
 	margin-bottom: 1rem;
+}
+
+h1 small,
+h2 small,
+h3 small {
+	display: block;
+  font-weight: initial;
 }
 
 .container {
@@ -68,7 +75,6 @@ h3 {
 	max-width: 70rem;
 	margin: 0 auto;
 	padding: 0 1rem;
-	text-align: center;
 }
 
 .header {
@@ -157,18 +163,18 @@ h3 {
 .btnGroup {
   display: flex;
   gap: 0.7rem;
-  justify-content: space-evenly;
+  justify-content: flex-end;
 }
 
 .btnGroup * {
-  width: 100%;
+  /* width: 100%; */
 }
 
 .btn {
   white-space: nowrap;
 	padding: 1rem 1.5rem;
-	background-color: var(--light-grey);
-	color: white;
+	background-color: #ccc;
+	color: black;
 	border-radius: 0.5rem;
 	font-weight: 600;
   font-size: inherit;
@@ -176,6 +182,7 @@ h3 {
 	cursor: pointer;
 	line-height: 1;
 	box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+  text-align: center;
 }
 
 .btn:hover {
@@ -188,14 +195,17 @@ h3 {
 
 .btn.btn-success {
 	background-color: var(--light-green) !important;
+	color: white;
 }
 
 .btn.btn-info {
 	background-color: var(--light-blue) !important;
+	color: white;
 }
 
 .btn.btn-danger {
 	background-color: var(--light-red) !important;
+	color: white;
 }
 
 .btn.disabled {
@@ -211,7 +221,7 @@ h3 {
 	margin: auto;
   display: flex;
   gap: 0.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-start;
@@ -227,11 +237,15 @@ h3 {
 .formControl {
   border: 1px solid rgba(0, 0, 0, 0.1);
 	padding: 0.7rem 1rem;
-  line-height: 1;
+  line-height: 1.5rem;
   font-size: inherit;
   font-family: inherit;
   border-radius: 0.5rem;
 	width: 100%;
+}
+
+.table-responsive {
+  overflow-x: scroll;
 }
 
 .table {
