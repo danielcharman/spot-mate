@@ -18,8 +18,8 @@ function App() {
 				<main className='bodyWrapper'>
 					<div className='container'>
 						<Routes>
-							<Route path='/' element={<Overview/>} />
-							<Route path='/workouts' element={<Workouts/>} />
+							{/* <Route path='/workouts' element={<Workouts/>} /> */}
+							<Route path='/' element={<Workouts/>} />
               <Route path="/workouts/:workoutId" element={<Workout/>} />
               <Route path="/workouts/:workoutId/session" element={<Session/>} />
 							<Route path='/settings' element={<Settings/>} />
