@@ -25,10 +25,10 @@ function HeaderMenu() {
             <span className='headerMenuItemLabel'>Overview</span>
           </Link>
         </li>
-        <li className={'headerMenuItem ' + ((isCurrentRoute('/exercises')) && 'active')}>
-          <Link to='/exercises' onClick={onToggle}>
+        <li className={'headerMenuItem ' + ((isCurrentRoute('/workouts')) && 'active')}>
+          <Link to='/workouts' onClick={onToggle}>
             <FaDumbbell className='headerMenuItemIcon' />
-            <span className='headerMenuItemLabel'>Exercises</span>
+            <span className='headerMenuItemLabel'>Workouts</span>
           </Link>
         </li>
       </ul>
