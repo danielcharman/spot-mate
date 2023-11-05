@@ -34,9 +34,18 @@ function Session() {
 
   function forceSafariPlayAudio() {
     alert('touch start');
-    audioElement.load(); // iOS 9   还需要额外的 load 一下, 否则直接 play 无效
-    // audioElement.play(); // iOS 7/8 仅需要 play 一下
-      window.removeEventListener('touchstart', forceSafariPlayAudio, false);
+
+
+    setTimeout(function() {
+
+      audioElement.play()
+      audioElement.pause()
+      audioElement.currentTime = 0
+
+    }, 2000)
+
+
+    window.removeEventListener('touchstart', forceSafariPlayAudio, false);
   }
 
   useEffect(() => {
@@ -83,31 +92,23 @@ function Session() {
 
   const playLiftingSound = () => {
     audioElement.src = '/audio/lift.mp3';
-
-    audioElement.addEventListener('canplay', () => {
-      audioElement.play();
-    });
+    audioElement.load();
+    audioElement.play();
   };
 
   const playRestingSound = () => {
     audioElement.src = '/audio/rest.mp3';
-
-    audioElement.addEventListener('canplay', () => {
-      audioElement.play();
-    });
+    audioElement.load();
+    audioElement.play();
   };
 
   const playCompleteSound = () => {
     audioElement.src = '/audio/complete.mp3';
-
-    audioElement.addEventListener('canplay', () => {
-      audioElement.play();
-    });
+    audioElement.load();
+    audioElement.play();
   };
 
   const handleToggleStart = () => {
-    audioElement.play();
-
     if (isRunning) {
       setIsRunning(false);
     }else{
