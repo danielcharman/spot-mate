@@ -232,7 +232,7 @@ hr {
 }
 
 .btn:hover {
-	filter: brightness(70%);
+	/* filter: brightness(70%); */
 }
 
 .btn.btn-small {
@@ -386,7 +386,7 @@ select {
 	/* text-transform: uppercase; */
 	letter-spacing: 0;
 	text-align: center;
-	margin: 2rem 0;
+	margin: 1rem 0;
   /* padding-bottom: 1rem; */
   /* border-bottom: 2px solid rgba(0, 0, 0, 0.1); */
 }
@@ -395,13 +395,35 @@ select {
 .session-wrapper {
   width: 100%;
   text-align: center;
+  opacity: 0.5;
+  margin: 0 0 1rem;
+}
+
+.session-wrapper.current {
+  /* background-color: red; */
+  opacity: 1;
 }
 
 .session-wrapper .session-exercise-name {
+  margin: 1rem 0 1rem;
+}
+
+.session-wrapper .session-exercise-name span {
+  display: block;
+}
+
+.session-wrapper .session-exercise-name span:first-of-type {
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 0.6rem;
+  letter-spacing: 0.15rem;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.session-wrapper .session-exercise-name span:last-of-type {
   font-size: 1.5rem;
   line-height: 2rem;
   font-weight: 600;
-  margin: 0 0 1rem;
 }
 
 .session-wrapper .session-attributes {
@@ -440,22 +462,22 @@ select {
   font-weight: 600;
 }
 
-.session-wrapper .session-counter {
+.session-counter {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 1rem 0 2rem;
+  margin: 0 0 3rem;
 }
 
-.session-wrapper .session-counter.lifting > div {
+.session-counter.lifting > div {
   animation: lifting-animation 2s infinite;
 }
 
-.session-wrapper .session-counter.resting > div {
+.session-counter.resting > div {
   animation: resting-animation 4s infinite;
 }
 
-.session-wrapper .session-counter > div {
+.session-counter > div {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -465,31 +487,33 @@ select {
   font-weight: 700;
   outline: 1rem solid rgba(0, 0, 0, 0.1);
   border-radius: 100%;
-  width: 15rem;
-  height: 15rem;
+  width: 13rem;
+  height: 13rem;
   line-height: 1;
   color: rgba(0, 0, 0, 0.4);
   /* animation: resting-animation 4s infinite; */
 }
 
-.session-wrapper .session-counter > div span:last-of-type {
+.session-counter > div span:last-of-type {
   font-size: 1rem;
   text-transform: uppercase;
 }
 
-.session-wrapper .btn {
+/* .session-wrapper .btn {
   width: 100%;
-}
+} */
 
 .session-controls {
   display: flex;
   gap: 1rem;
-  margin-top: 1rem;
+  /* margin: 1rem 0 0; */
   justify-content: space-evenly;
+  width: 100%;
 }
 
 .session-controls .btn {
   flex-basis: 50%;
+  width: 100%;
   margin-bottom: 1rem;
   flex: 1;
 }

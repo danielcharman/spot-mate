@@ -2,9 +2,17 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import { FaPen } from 'react-icons/fa'
+import {toast} from 'react-toastify'
 
 function Session() {
   let { workoutId } = useParams();
+
+  const [audioFiles, setaudioFiles] = useState({
+    start: '/audio/start.mp3',
+    timer: '/audio/lift.mp3',
+    rest: '/audio/rest.mp3',
+    complete: '/audio/complete.mp3',
+  });
 
   const [exerciseList, setExerciseList] = useState([]);
 
@@ -35,11 +43,13 @@ function Session() {
   function forceSafariPlayAudio() {
     //hacky way of auto playing audio
     setTimeout(function() {
-      audioElement.src = '/audio/start.mp3';
-      audioElement.play()
-      audioElement.pause()
-      audioElement.currentTime = 0
-    }, 2000)
+      for (const [key, value] of Object.entries(audioFiles)) {
+        audioElement.src = value;
+        audioElement.play()
+        audioElement.pause()
+        audioElement.currentTime = 0
+      }
+    }, 500)
 
     window.removeEventListener('touchstart', forceSafariPlayAudio, false);
   }
@@ -71,10 +81,11 @@ function Session() {
   useEffect(() => {
     if (isRunning) {
       if(seconds == currentWorkoutExercises[currentWorkoutIndex].rest) {
-        playRestingSound();
-      }else{
+        playSound('rest');
+        toast('Set complete! Rest and get ready for the next set!', { theme: 'dark', autoClose: 3000 });
+      }else if(seconds > currentWorkoutExercises[currentWorkoutIndex].rest) {
         if(seconds % 2 !== 0) {
-          playLiftingSound();
+          playSound('timer');
         }
       }
 
@@ -82,42 +93,38 @@ function Session() {
         setIsRunning(false);
         setCurrentWorkoutIndex(currentWorkoutIndex+1);
         setSeconds(currentWorkoutExercises[currentWorkoutIndex].duration + currentWorkoutExercises[currentWorkoutIndex].rest);
-        playCompleteSound();
+        playSound('complete');
+        toast('Rest complete! Ready for more?', { theme: 'dark', autoClose: 3000 });
+
+        handleNextExercise()
+        handleStart()
       }
     }
   }, [seconds]);
 
-  const playStartSound = () => {
-    audioElement.src = '/audio/start.mp3';
-    audioElement.load();
-    audioElement.play();
-  };
-
-  const playLiftingSound = () => {
-    audioElement.src = '/audio/lift.mp3';
-    audioElement.load();
-    audioElement.play();
-  };
-
-  const playRestingSound = () => {
-    audioElement.src = '/audio/rest.mp3';
-    audioElement.load();
-    audioElement.play();
-  };
-
-  const playCompleteSound = () => {
-    audioElement.src = '/audio/complete.mp3';
+  const playSound = (name) => {
+    audioElement.src = audioFiles[name];
     audioElement.load();
     audioElement.play();
   };
 
   const handleToggleStart = () => {
     if (isRunning) {
-      setIsRunning(false);
+      handlePause()
+      toast('Workout paused...', { theme: 'dark', autoClose: 1000 });
     }else{
-      setIsRunning(true);
-      playStartSound();
+      handleStart()
+      toast('Workout started! Get lifting!', { theme: 'dark', autoClose: 1000 });
     }
+  };
+
+  const handleStart = () => {
+    setIsRunning(true);
+    playSound('start');
+  };
+
+  const handlePause = () => {
+    setIsRunning(false);
   };
 
   const handleReset = () => {
@@ -148,8 +155,8 @@ function Session() {
           set: index + 1 ,
           reps: currentReps,
           weight: (Math.floor(currentWeight) !== 0) ? currentWeight + 'kg' : 'BW',
-          duration: Math.ceil(currentReps * 2),
-          rest: Math.ceil(parseInt(item.rest) * 60)
+          duration: 5, //Math.ceil(currentReps * 2),
+          rest: 5, //Math.ceil(parseInt(item.rest) * 60)
         }
         workout.push(exercise);
       }
@@ -267,10 +274,8 @@ function Session() {
     );
   }
 
-  function displayCurrentExercise() {
+  function displayControls() {
     if(currentWorkoutExercises.length > 0) {
-      const currentExercise = currentWorkoutExercises[currentWorkoutIndex];
-
       var statusClass = '';
       if(isRunning) {
         statusClass = (seconds <= currentWorkoutExercises[currentWorkoutIndex].rest) ? 'resting' : 'lifting'
@@ -289,7 +294,7 @@ function Session() {
       }
 
       return (
-        <div className="session-wrapper">
+        <>
           <div className={
             'session-counter ' + statusClass
           }>
@@ -298,7 +303,32 @@ function Session() {
               <span>{statusLabel}</span>
             </div>
           </div>
-          <div className='session-exercise-name'>{currentExercise.name}</div>
+          <div className='session-controls'>
+          <button className={'btn ' + ((isRunning) ? 'btn-danger' : 'btn-success')} onClick={handleToggleStart}>{(isRunning) ? 'Pause' : 'Start'}</button>
+          </div>
+          <div className='session-controls'>
+            {(currentWorkoutIndex > 0) && (
+              <button className="btn" onClick={handlePreviousExercise}>Prev</button>
+            )}
+            {(currentWorkoutIndex < currentWorkoutExercises.length - 1) && (
+              <button className="btn" onClick={handleNextExercise}>Next</button>
+            )}
+          </div>
+        </>
+      );
+    }
+  }
+
+  function displayExercise(index, current) {
+    if(currentWorkoutExercises.length > 0) {
+      const currentExercise = currentWorkoutExercises[index];
+
+      return (
+        <div className={'session-wrapper ' + ((current) ? 'current' : '')}>
+          <div className='session-exercise-name'>
+            <span>{(current) ? 'Current' : 'Next'} Exercise</span>
+            <span>{currentExercise.name}</span>
+          </div>
 
           <div className='session-attributes'>
             <div className='session-attribute'>
@@ -322,19 +352,6 @@ function Session() {
               <span>{currentExercise.rest}s</span>
             </div>
           </div>
-
-          <button className="btn btn-primary" onClick={handleToggleStart}>{(isRunning) ? 'Pause' : 'Start'}</button>
-
-          <div className='session-controls'>
-            {(currentWorkoutIndex > 0) && (
-              <button className="btn" onClick={handlePreviousExercise}>Prev</button>
-            )}
-
-            {(currentWorkoutIndex < currentWorkoutExercises.length - 1) && (
-              <button className="btn" onClick={handleNextExercise}>Next</button>
-            )}
-          </div>
-
         </div>
       );
     }
@@ -344,11 +361,13 @@ function Session() {
     <>
       <h1 className="pageTitle">{workoutId}</h1>
       <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-        <Link to={'/workouts/' + workoutId} className="btn btn-small" style={{margin: '0 0 2rem'}}>
+        {/* <Link to={'/workouts/' + workoutId} className="btn btn-small" style={{margin: '0 0 2rem'}}>
           <FaPen className="btnIcon" /> Edit Workout
-        </Link>
+        </Link> */}
 
-        {displayCurrentExercise()}
+        {displayExercise(currentWorkoutIndex, true)}
+        {displayControls()}
+        {displayExercise(currentWorkoutIndex+1, false)}
 
         <hr/>
 
