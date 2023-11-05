@@ -118,7 +118,7 @@ hr {
 
 .container {
 	width: 100%;
-	max-width: 70rem;
+	max-width: 450px;
 	margin: 0 auto;
 	padding: 0 1rem;
 }
