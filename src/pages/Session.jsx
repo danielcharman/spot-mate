@@ -14,6 +14,8 @@ function Session() {
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
 
+  const [audioElement] = useState(new Audio());
+
   useEffect(() => {
     // Retrieve exerciseList from local storage when the component mounts
     const storedExerciseList = JSON.parse(localStorage.getItem('workouts'));
@@ -51,20 +53,59 @@ function Session() {
 
   useEffect(() => {
     if (isRunning) {
+      if(seconds == currentWorkoutExercises[currentWorkoutIndex].rest) {
+        playRestingSound();
+      }else if(seconds > currentWorkoutExercises[currentWorkoutIndex].rest) {
+        playLiftingSound();
+      }
+
       if(seconds === 0) {
         setIsRunning(false);
         console.log('next');
         setCurrentWorkoutIndex(currentWorkoutIndex+1);
         setSeconds(currentWorkoutExercises[currentWorkoutIndex].duration + currentWorkoutExercises[currentWorkoutIndex].rest);
+        playCompleteSound();
       }
     }
   }, [seconds]);
+
+  // useEffect(() => {
+
+  //   return () => {
+  //     audioElement.removeEventListener('ended', handleAudioEnd);
+  //   };
+  // }, [audioElement]);
+
+  const playLiftingSound = () => {
+    audioElement.src = '/audio/lift.mp3';
+
+    audioElement.addEventListener('canplay', () => {
+      audioElement.play();
+    });
+  };
+
+  const playRestingSound = () => {
+    audioElement.src = '/audio/rest.mp3';
+
+    audioElement.addEventListener('canplay', () => {
+      audioElement.play();
+    });
+  };
+
+  const playCompleteSound = () => {
+    audioElement.src = '/audio/complete.mp3';
+
+    audioElement.addEventListener('canplay', () => {
+      audioElement.play();
+    });
+  };
 
   const handleToggleStart = () => {
     if (isRunning) {
       setIsRunning(false);
     }else{
       setIsRunning(true);
+      playLiftingSound();
     }
   };
 
@@ -98,8 +139,8 @@ function Session() {
           set: index + 1 ,
           reps: currentReps,
           weight: (Math.floor(currentWeight) !== 0) ? currentWeight + 'kg' : 'BW',
-          duration: Math.ceil(currentReps * 2.5),
-          rest: Math.ceil(parseInt(item.rest) * 60)
+          duration: 5, //Math.ceil(currentReps * 2.5),
+          rest: 5, //Math.ceil(parseInt(item.rest) * 60)
         }
         workout.push(exercise);
       }
@@ -240,7 +281,7 @@ function Session() {
       }
 
       return (
-        <div class="session-wrapper">
+        <div className="session-wrapper">
           <div className={
             'session-counter ' + statusClass
           }>
