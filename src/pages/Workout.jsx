@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ExerciseList from '../components/ExerciseList'
+import { Link } from 'react-router-dom'
+import { FaPlay } from 'react-icons/fa'
 
 function Workout() {
   let { workoutId } = useParams();
@@ -131,7 +133,9 @@ function Workout() {
     <>
       <h1 className="pageTitle">{workoutId}</h1>
       <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-
+        <Link to={'/workouts/' + workoutId + '/session'} className="btn btn-small" style={{margin: '0 0 2rem'}}>
+          <FaPlay className="btnIcon" /> Start Workout
+        </Link>
         <form className="form" onSubmit={handleSubmit}>
           <div className="formGroup">
             <input
@@ -203,7 +207,7 @@ function Workout() {
               required={true}
             />
           </div>
-          <button className="btn btn-success" type="submit" style={{flexBasis: '100%'}}>
+          <button className="btn btn-primary" type="submit" style={{flexBasis: '100%'}}>
             {editIndex !== null ? 'Update' : 'Create'}  Exercise
           </button>
         </form>

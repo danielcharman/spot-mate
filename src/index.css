@@ -166,7 +166,7 @@ h3 small {
 
 .btnGroup {
   display: flex;
-  gap: 0.7rem;
+  gap: 0.25rem;
   justify-content: flex-end;
 }
 
@@ -194,16 +194,18 @@ h3 small {
 }
 
 .btn.btn-small {
-	padding: 0.5rem;
+	padding: 0.5rem 1rem;;
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.btn.btn-primary {
+	background-color: var(--light-blue) !important;
+	color: white;
 }
 
 .btn.btn-success {
 	background-color: var(--light-green) !important;
-	color: white;
-}
-
-.btn.btn-info {
-	background-color: var(--light-blue) !important;
 	color: white;
 }
 
@@ -248,6 +250,13 @@ h3 small {
 	width: 100%;
 }
 
+select {
+  /* appearance: none; Remove default browser styles */
+  -webkit-appearance: none;
+  cursor: pointer; /* Change cursor on hover */
+  background-color: white; /* Set background color */
+}
+
 .table-responsive {
   overflow-x: scroll;
 }
@@ -263,22 +272,28 @@ h3 small {
 .table th {
   background-color: rgba(0, 0, 0, 0.1);
   font-weight: 600;
-	padding: 0.7rem;
+	padding: 0.5rem;
   vertical-align: middle;
   text-align: inherit;
-  border: 1px solid #eee;
+  border: 1px solid white;
 }
 
 .table td {
   background-color: rgba(0, 0, 0, 0.05);
-	padding: 0.7rem;
+	padding: 0.5rem;
   vertical-align: middle;
   text-align: inherit;
-  border: 1px solid #eee;
+  border: 1px solid white;
 }
 
 .table .btn {
-  padding: 0.5rem;
+  padding: 0.35rem;
+}
+
+.table small {
+  font-size: 0.7rem;
+  display: block;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .badge {

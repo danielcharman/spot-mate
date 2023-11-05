@@ -94,7 +94,7 @@ function Workouts() {
               required={true}
             />
           </div>
-          <button className="btn btn-success" type="submit" style={{flexBasis: '100%'}}>
+          <button className="btn btn-primary" type="submit" style={{flexBasis: '100%'}}>
             Create Workout
           </button>
         </form>

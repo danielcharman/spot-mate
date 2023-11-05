@@ -72,11 +72,11 @@ function Settings() {
               style={{height: '25vh', fontFamily: 'monospace'}}
             ></textarea>
           </div>
-          <button className="btn btn-success" type="submit" style={{flexBasis: '100%'}}>
-            Import
+          <button className="btn btn-danger" type="submit" style={{flexBasis: '100%'}}>
+            Import Json
           </button>
-          <a onClick={handleDefaultImport} className="btn" style={{flexBasis: '100%'}}>
-            Import Default
+          <a onClick={handleDefaultImport} className="btn btn-danger" style={{flexBasis: '100%'}}>
+            Load Sample Workouts
           </a>
         </form>
       </div>

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+import { FaPen } from 'react-icons/fa'
 
 function Session() {
   let { workoutId } = useParams();
@@ -130,6 +132,9 @@ function Session() {
     <>
       <h1 className="pageTitle">{workoutId}</h1>
       <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+        <Link to={'/workouts/' + workoutId} className="btn btn-small" style={{margin: '0 0 2rem'}}>
+          <FaPen className="btnIcon" /> Edit Workout
+        </Link>
         {displayWorkout(exerciseList)}
       </div>
     </>

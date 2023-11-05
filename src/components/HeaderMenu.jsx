@@ -1,4 +1,4 @@
-import { FaBars, FaDesktop, FaDumbbell } from 'react-icons/fa'
+import { FaBars, FaCog, FaDumbbell } from 'react-icons/fa'
 import { Link, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 
@@ -25,7 +25,7 @@ function HeaderMenu() {
             <span className='headerMenuItemLabel'>Overview</span>
           </Link>
         </li> */}
-        <li className={'headerMenuItem ' + ((isCurrentRoute('/workouts')) && 'active')}>
+        <li className={'headerMenuItem ' + ((!isCurrentRoute('/settings')) && 'active')}>
           <Link to='/' onClick={onToggle}>
             <FaDumbbell className='headerMenuItemIcon' />
             <span className='headerMenuItemLabel'>Workouts</span>
@@ -33,7 +33,7 @@ function HeaderMenu() {
         </li>
         <li className={'headerMenuItem ' + ((isCurrentRoute('/settings')) && 'active')}>
           <Link to='/settings' onClick={onToggle}>
-            <FaDumbbell className='headerMenuItemIcon' />
+            <FaCog className='headerMenuItemIcon' />
             <span className='headerMenuItemLabel'>Settings</span>
           </Link>
         </li>
