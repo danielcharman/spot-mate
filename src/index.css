@@ -396,7 +396,7 @@ select {
   width: 100%;
   text-align: center;
   opacity: 0.5;
-  margin: 0 0 1rem;
+  margin: 1rem 0 0;
 }
 
 .session-wrapper.current {
@@ -405,7 +405,7 @@ select {
 }
 
 .session-wrapper .session-exercise-name {
-  margin: 1rem 0 1rem;
+  margin: 0 0 0.5rem;
 }
 
 .session-wrapper .session-exercise-name span {
@@ -466,7 +466,7 @@ select {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 0 3rem;
+  margin: 0 0 2rem;
 }
 
 .session-counter.lifting > div {
@@ -487,8 +487,8 @@ select {
   font-weight: 700;
   outline: 1rem solid rgba(0, 0, 0, 0.1);
   border-radius: 100%;
-  width: 13rem;
-  height: 13rem;
+  width: 12rem;
+  height: 12rem;
   line-height: 1;
   color: rgba(0, 0, 0, 0.4);
   /* animation: resting-animation 4s infinite; */
@@ -505,7 +505,7 @@ select {
 
 .session-controls {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
   /* margin: 1rem 0 0; */
   justify-content: space-evenly;
   width: 100%;
@@ -514,6 +514,6 @@ select {
 .session-controls .btn {
   flex-basis: 50%;
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   flex: 1;
 }

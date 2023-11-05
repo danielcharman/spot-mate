@@ -113,8 +113,11 @@ function Session() {
       handlePause()
       toast('Workout paused...', { theme: 'dark', autoClose: 1000 });
     }else{
-      handleStart()
-      toast('Workout started! Get lifting!', { theme: 'dark', autoClose: 1000 });
+      toast('Workout starting in 10 seconds. Get ready...', { theme: 'dark', autoClose: 10000 });
+      setTimeout(function() {
+        handleStart()
+        toast('Workout started! Get lifting!', { theme: 'dark', autoClose: 1000 });
+      }, 10000)
     }
   };
 
@@ -322,14 +325,12 @@ function Session() {
   function displayExercise(index, current) {
     if(currentWorkoutExercises.length > 0) {
       const currentExercise = currentWorkoutExercises[index];
-
       return (
         <div className={'session-wrapper ' + ((current) ? 'current' : '')}>
           <div className='session-exercise-name'>
             <span>{(current) ? 'Current' : 'Next'} Exercise</span>
             <span>{currentExercise.name}</span>
           </div>
-
           <div className='session-attributes'>
             <div className='session-attribute'>
               <span>Set</span>
@@ -359,18 +360,17 @@ function Session() {
 
   return (
     <>
-      <h1 className="pageTitle">{workoutId}</h1>
+      <h1 className="pageTitle" style={{marginBottom: 0, display: 'flex', justifyContent: 'center'}}>
+        {workoutId}
+        <Link to={'/workouts/' + workoutId} className="btn btn-small" style={{marginLeft: '1rem'}}>
+          <FaPen className="btnIcon" />
+        </Link>
+      </h1>
       <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-        {/* <Link to={'/workouts/' + workoutId} className="btn btn-small" style={{margin: '0 0 2rem'}}>
-          <FaPen className="btnIcon" /> Edit Workout
-        </Link> */}
-
         {displayExercise(currentWorkoutIndex, true)}
         {displayControls()}
         {displayExercise(currentWorkoutIndex+1, false)}
-
         <hr/>
-
         <h2 style={{margin: '0'}}>Full Workout</h2>
         {displayWorkout(exerciseList)}
       </div>
