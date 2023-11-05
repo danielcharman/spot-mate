@@ -19,12 +19,12 @@ function HeaderMenu() {
     <div className="headerMenu">
       <FaBars className='headerMenuIcon' onClick={onToggle} />
       <ul className={'headerMenuItems ' + ((isOpen) && 'open')}>
-        <li className={'headerMenuItem ' + ((isCurrentRoute('/')) && 'active')}>
+        {/* <li className={'headerMenuItem ' + ((isCurrentRoute('/')) && 'active')}>
           <Link to='/' onClick={onToggle}>
             <FaDesktop className='headerMenuItemIcon' />
             <span className='headerMenuItemLabel'>Overview</span>
           </Link>
-        </li>
+        </li> */}
         <li className={'headerMenuItem ' + ((isCurrentRoute('/workouts')) && 'active')}>
           <Link to='/workouts' onClick={onToggle}>
             <FaDumbbell className='headerMenuItemIcon' />

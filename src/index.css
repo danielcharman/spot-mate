@@ -40,6 +40,10 @@ body {
   font-size: 0.95rem;
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 a {
 	text-decoration: none;
 }

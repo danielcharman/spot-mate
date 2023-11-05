@@ -41,7 +41,7 @@ function Settings() {
               name="export"
               value={JSON.stringify(exportData)}
               required={true}
-              readOnly={true}
+              // readOnly={true}
               style={{height: '25vh', fontFamily: 'monospace'}}
             ></textarea>
           </div>
