@@ -10,11 +10,11 @@ function Workout() {
 
   const [exerciseData, setExerciseData] = useState({
     name: '',
-    sets: '6',
-    reps: '8',
-    rest: '2',
-    style: 'standard',
-    weight: '0',
+    sets: '',
+    reps: '',
+    rest: '',
+    style: 'peak',
+    weight: '',
   });
 
   const [exerciseList, setExerciseList] = useState([]);
@@ -88,11 +88,11 @@ function Workout() {
 
     setExerciseData({
       name: '',
-      sets: '6',
-      reps: '8',
-      rest: '2',
-      style: 'standard',
-      weight: '0',
+      sets: '',
+      reps: '',
+      rest: '',
+      style: 'peak',
+      weight: '',
     });
     setEditIndex(null);
   };
@@ -137,9 +137,6 @@ function Workout() {
     <>
       <h1 className="pageTitle">{workoutId}</h1>
       <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-        <Link to={'/workouts/' + workoutId + '/session'} className="btn btn-small" style={{margin: '0 0 2rem'}}>
-          <FaPlay className="btnIcon" /> Start Workout
-        </Link>
         <form className="form" onSubmit={handleSubmit}>
           <div className="formGroup">
             <input
@@ -195,9 +192,9 @@ function Workout() {
               onChange={handleInputChange}
               required={true}
             >
-              <option value="standard">Standard</option>
-              <option value="peak">Peak</option>
-              <option value="progressive">Progressive</option>
+              <option value="standard">Style: Standard</option>
+              <option value="peak">Style: Peak</option>
+              <option value="progressive">Style: Progressive</option>
             </select>
           </div>
           <div className="formGroup" style={{flexBasis: '48%'}}>

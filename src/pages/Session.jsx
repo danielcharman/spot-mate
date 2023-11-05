@@ -21,6 +21,7 @@ function Session() {
 
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [isStarting, setIsStarting] = useState(false);
 
   const [audioElement] = useState(new Audio());
 
@@ -113,8 +114,10 @@ function Session() {
       handlePause()
       toast('Workout paused...', { theme: 'dark', autoClose: 1000 });
     }else{
+      setIsStarting(true);
       toast('Workout starting in 10 seconds. Get ready...', { theme: 'dark', autoClose: 10000 });
       setTimeout(function() {
+        setIsStarting(false);
         handleStart()
         toast('Workout started! Get lifting!', { theme: 'dark', autoClose: 1000 });
       }, 10000)
@@ -307,14 +310,14 @@ function Session() {
             </div>
           </div>
           <div className='session-controls'>
-          <button className={'btn ' + ((isRunning) ? 'btn-danger' : 'btn-success')} onClick={handleToggleStart}>{(isRunning) ? 'Pause' : 'Start'}</button>
+          <button className={'btn ' + ((isRunning) ? 'btn-danger' : 'btn-success') + ((isStarting) ? ' btn-disabled' : '')} onClick={handleToggleStart} disabled={(isStarting) ? true : false}>{(isRunning) ? 'Pause' : 'Start'}</button>
           </div>
           <div className='session-controls'>
             {(currentWorkoutIndex > 0) && (
-              <button className="btn" onClick={handlePreviousExercise}>Prev</button>
+              <button className={'btn ' + ((isStarting) ? ' btn-disabled' : '')} onClick={handlePreviousExercise} disabled={(isStarting) ? true : false}>Prev</button>
             )}
             {(currentWorkoutIndex < currentWorkoutExercises.length - 1) && (
-              <button className="btn" onClick={handleNextExercise}>Next</button>
+              <button className={'btn ' + ((isStarting) ? ' btn-disabled' : '')} onClick={handleNextExercise} disabled={(isStarting) ? true : false}>Next</button>
             )}
           </div>
         </>

@@ -3,7 +3,7 @@ import { FaPen, FaTrash, FaAngleUp, FaAngleDown } from 'react-icons/fa'
 function ExerciseList({ exerciseList, onEdit, onDelete, onReorder }) {
   // exerciseList.sort((a, b) => a.name.localeCompare(b.name));
   return (
-    <table className="table">
+    <table className="table" style={{marginTop: '1rem'}}>
       {/* <thead>
         <tr>
           <th style={{textAlign: 'left'}}>Exercise Name</th>
@@ -16,8 +16,8 @@ function ExerciseList({ exerciseList, onEdit, onDelete, onReorder }) {
           {exerciseList.map((exercise, index) => (
             <tr key={index}>
               <td style={{textAlign: 'left'}}>
-                <b>{exercise.name}</b>
-                <small>{exercise.sets} sets | {exercise.reps} reps | {exercise.rest}mins | {exercise.style} | {(exercise.weight !== 0) ? exercise.weight + 'kg' : 'BW'}</small>
+                {exercise.name}
+                {/* <small>{exercise.sets} sets | {exercise.reps} reps | {exercise.rest}mins | {exercise.style} | {(exercise.weight !== 0) ? exercise.weight + 'kg' : 'BW'}</small> */}
               </td>
               <td style={{width: '8rem'}}>
                 <div className="btnGroup">

@@ -256,7 +256,7 @@ hr {
 	color: white;
 }
 
-.btn.disabled {
+.btn.btn-disabled {
   opacity: 0.2;
 	cursor: initial;
 }
@@ -312,7 +312,7 @@ select {
 	width: 100%;
   margin-bottom: 1rem;
   border-collapse: collapse;
-  font-size: inherit;
+  font-size: 0.85rem;
   border: 1px solid #eee;
 }
 
@@ -331,10 +331,12 @@ select {
   vertical-align: middle;
   text-align: inherit;
   border: 1px solid white;
+  /* vertical-align: top; */
+  line-height: 1.125rem;
 }
 
 .table .btn {
-  padding: 0.35rem;
+  padding: 0.5rem;
 }
 
 .table small {
