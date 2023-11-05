@@ -17,27 +17,43 @@ function Session() {
   const [audioElement] = useState(new Audio());
 
   useEffect(() => {
-    // Retrieve exerciseList from local storage when the component mounts
+    // Add the 'touchstart' event listener
+    window.addEventListener('touchstart', forceSafariPlayAudio, false);
+
     const storedExerciseList = JSON.parse(localStorage.getItem('workouts'));
     if (storedExerciseList) {
       const storedWorkout = findExercisesForWorkout(storedExerciseList, workoutId);
       setExerciseList(storedWorkout.exercises);
     }
 
-  }, []); // The empty dependency array ensures this runs only once
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('touchstart', forceSafariPlayAudio, false);
+    };
+  }, []);
+
+  function forceSafariPlayAudio() {
+    //hacky way of auto playing audio
+    setTimeout(function() {
+      audioElement.play()
+      audioElement.pause()
+      audioElement.currentTime = 0
+    }, 2000)
+
+    window.removeEventListener('touchstart', forceSafariPlayAudio, false);
+  }
 
   useEffect(() => {
     if (exerciseList) {
       createWorkoutPlan(exerciseList);
     }
-  }, [exerciseList]); // The empty dependency array ensures this runs only once
+  }, [exerciseList]);
 
   useEffect(() => {
     if(currentWorkoutExercises.length > 0) {
-      // console.log(currentWorkoutExercises[currentWorkoutIndex].duration);
       setSeconds(currentWorkoutExercises[currentWorkoutIndex].duration + currentWorkoutExercises[currentWorkoutIndex].rest);
     }
-  }, [ currentWorkoutExercises]); // The empty dependency array ensures this runs only once
+  }, [ currentWorkoutExercises]);
 
   useEffect(() => {
     let timer;
@@ -69,35 +85,22 @@ function Session() {
     }
   }, [seconds]);
 
-  // useEffect(() => {
-
-  //   return () => {
-  //     audioElement.removeEventListener('ended', handleAudioEnd);
-  //   };
-  // }, [audioElement]);
-
   const playLiftingSound = () => {
     audioElement.src = '/audio/lift.mp3';
-
-    audioElement.addEventListener('canplay', () => {
-      audioElement.play();
-    });
+    audioElement.load();
+    audioElement.play();
   };
 
   const playRestingSound = () => {
     audioElement.src = '/audio/rest.mp3';
-
-    audioElement.addEventListener('canplay', () => {
-      audioElement.play();
-    });
+    audioElement.load();
+    audioElement.play();
   };
 
   const playCompleteSound = () => {
     audioElement.src = '/audio/complete.mp3';
-
-    audioElement.addEventListener('canplay', () => {
-      audioElement.play();
-    });
+    audioElement.load();
+    audioElement.play();
   };
 
   const handleToggleStart = () => {
