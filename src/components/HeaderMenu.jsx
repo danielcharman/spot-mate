@@ -26,7 +26,7 @@ function HeaderMenu() {
           </Link>
         </li> */}
         <li className={'headerMenuItem ' + ((isCurrentRoute('/workouts')) && 'active')}>
-          <Link to='/workouts' onClick={onToggle}>
+          <Link to='/' onClick={onToggle}>
             <FaDumbbell className='headerMenuItemIcon' />
             <span className='headerMenuItemLabel'>Workouts</span>
           </Link>

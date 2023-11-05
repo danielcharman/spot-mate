@@ -29,6 +29,21 @@ function Settings() {
     getExportData();
   };
 
+  const handleDefaultImport = (e) => {
+    e.preventDefault();
+
+    fetch('/sample/export.json')
+    .then(response => response.json())
+    .then(data => {
+      localStorage.setItem('workouts', JSON.stringify(data, null, 2));
+      setImportData('');
+      getExportData();
+    })
+    .catch(error => {
+      this.setState({ error });
+    });
+  };
+
   return (
     <>
       <h1 className="pageTitle">Settings</h1>
@@ -60,8 +75,8 @@ function Settings() {
           <button className="btn btn-success" type="submit" style={{flexBasis: '100%'}}>
             Import
           </button>
-          <a href="/sample/export.json" target="_blank" className="btn" style={{flexBasis: '100%'}}>
-            View Default
+          <a onClick={handleDefaultImport} className="btn" style={{flexBasis: '100%'}}>
+            Import Default
           </a>
         </form>
       </div>
