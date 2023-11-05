@@ -35,6 +35,7 @@ function Session() {
   function forceSafariPlayAudio() {
     //hacky way of auto playing audio
     setTimeout(function() {
+      audioElement.src = '/audio/start.mp3';
       audioElement.play()
       audioElement.pause()
       audioElement.currentTime = 0
