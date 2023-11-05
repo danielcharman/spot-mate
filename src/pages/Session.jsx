@@ -155,8 +155,8 @@ function Session() {
           set: index + 1 ,
           reps: currentReps,
           weight: (Math.floor(currentWeight) !== 0) ? currentWeight + 'kg' : 'BW',
-          duration: 5, //Math.ceil(currentReps * 2),
-          rest: 5, //Math.ceil(parseInt(item.rest) * 60)
+          duration: Math.ceil(currentReps * 2),
+          rest: Math.ceil(parseInt(item.rest) * 60)
         }
         workout.push(exercise);
       }
