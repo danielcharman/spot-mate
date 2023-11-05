@@ -13,8 +13,8 @@ function WorkoutList({ workoutList, onEdit, onDelete }) {
               <td style={{textAlign: 'left'}}><b>{workout.name}</b></td>
               <td style={{width: '6rem'}}>
                 <div className="btnGroup">
-                  <Link to={'/workouts/' + workout.name + '/session'} className="btn btn-primary">
-                    <FaPlay className="btnIcon" />
+                  <Link to={'/workouts/' + workout.name + '/session'} className="btn btn-success">
+                    <FaPlay className="btnIcon" /> Start
                   </Link>
                   <Link to={'/workouts/' + workout.name} className="btn btn-primary">
                     <FaPen className="btnIcon" />
