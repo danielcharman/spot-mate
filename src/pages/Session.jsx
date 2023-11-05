@@ -77,7 +77,6 @@ function Session() {
 
       if(seconds === 0) {
         setIsRunning(false);
-        console.log('next');
         setCurrentWorkoutIndex(currentWorkoutIndex+1);
         setSeconds(currentWorkoutExercises[currentWorkoutIndex].duration + currentWorkoutExercises[currentWorkoutIndex].rest);
         playCompleteSound();
@@ -119,14 +118,12 @@ function Session() {
 
   const handlePreviousExercise = () => {
     setIsRunning(false);
-    console.log('handleNextExercise');
     setCurrentWorkoutIndex(currentWorkoutIndex-1);
     setSeconds(currentWorkoutExercises[currentWorkoutIndex].duration + currentWorkoutExercises[currentWorkoutIndex].rest);
   };
 
   const handleNextExercise = () => {
     setIsRunning(false);
-    console.log('handleNextExercise');
     setCurrentWorkoutIndex(currentWorkoutIndex+1);
     setSeconds(currentWorkoutExercises[currentWorkoutIndex].duration + currentWorkoutExercises[currentWorkoutIndex].rest);
   };
@@ -142,8 +139,8 @@ function Session() {
           set: index + 1 ,
           reps: currentReps,
           weight: (Math.floor(currentWeight) !== 0) ? currentWeight + 'kg' : 'BW',
-          duration: 5, //Math.ceil(currentReps * 2.5),
-          rest: 5, //Math.ceil(parseInt(item.rest) * 60)
+          duration: Math.ceil(currentReps * 2.5),
+          rest: Math.ceil(parseInt(item.rest) * 60)
         }
         workout.push(exercise);
       }
@@ -264,7 +261,6 @@ function Session() {
   function displayCurrentExercise() {
     if(currentWorkoutExercises.length > 0) {
       const currentExercise = currentWorkoutExercises[currentWorkoutIndex];
-      // console.log('steve', currentExercise);
 
       var statusClass = '';
       if(isRunning) {
