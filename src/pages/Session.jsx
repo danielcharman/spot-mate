@@ -17,27 +17,24 @@ function Session() {
   const [audioElement] = useState(new Audio());
 
   useEffect(() => {
-    // Retrieve exerciseList from local storage when the component mounts
     const storedExerciseList = JSON.parse(localStorage.getItem('workouts'));
     if (storedExerciseList) {
       const storedWorkout = findExercisesForWorkout(storedExerciseList, workoutId);
       setExerciseList(storedWorkout.exercises);
     }
-
-  }, []); // The empty dependency array ensures this runs only once
+  }, []);
 
   useEffect(() => {
     if (exerciseList) {
       createWorkoutPlan(exerciseList);
     }
-  }, [exerciseList]); // The empty dependency array ensures this runs only once
+  }, [exerciseList]);
 
   useEffect(() => {
     if(currentWorkoutExercises.length > 0) {
-      // console.log(currentWorkoutExercises[currentWorkoutIndex].duration);
       setSeconds(currentWorkoutExercises[currentWorkoutIndex].duration + currentWorkoutExercises[currentWorkoutIndex].rest);
     }
-  }, [ currentWorkoutExercises]); // The empty dependency array ensures this runs only once
+  }, [ currentWorkoutExercises]);
 
   useEffect(() => {
     let timer;
@@ -69,13 +66,6 @@ function Session() {
     }
   }, [seconds]);
 
-  // useEffect(() => {
-
-  //   return () => {
-  //     audioElement.removeEventListener('ended', handleAudioEnd);
-  //   };
-  // }, [audioElement]);
-
   const playLiftingSound = () => {
     audioElement.src = '/audio/lift.mp3';
 
@@ -101,6 +91,9 @@ function Session() {
   };
 
   const handleToggleStart = () => {
+    audioElement.autoplay = true;
+    audioElement.play();
+
     if (isRunning) {
       setIsRunning(false);
     }else{
