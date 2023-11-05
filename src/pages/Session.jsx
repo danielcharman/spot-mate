@@ -8,6 +8,12 @@ function Session() {
 
   const [exerciseList, setExerciseList] = useState([]);
 
+  const [currentWorkoutExercises, setCurrentWorkoutExercises] = useState([]);
+  const [currentWorkoutIndex, setCurrentWorkoutIndex] = useState(0);
+
+  const [seconds, setSeconds] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
+
   useEffect(() => {
     // Retrieve exerciseList from local storage when the component mounts
     const storedExerciseList = JSON.parse(localStorage.getItem('workouts'));
@@ -15,7 +21,91 @@ function Session() {
       const storedWorkout = findExercisesForWorkout(storedExerciseList, workoutId);
       setExerciseList(storedWorkout.exercises);
     }
+
   }, []); // The empty dependency array ensures this runs only once
+
+  useEffect(() => {
+    if (exerciseList) {
+      createWorkoutPlan(exerciseList);
+    }
+  }, [exerciseList]); // The empty dependency array ensures this runs only once
+
+  useEffect(() => {
+    if(currentWorkoutExercises.length > 0) {
+      // console.log(currentWorkoutExercises[currentWorkoutIndex].duration);
+      setSeconds(currentWorkoutExercises[currentWorkoutIndex].duration + currentWorkoutExercises[currentWorkoutIndex].rest);
+    }
+  }, [ currentWorkoutExercises]); // The empty dependency array ensures this runs only once
+
+  useEffect(() => {
+    let timer;
+
+    if (isRunning) {
+      timer = setInterval(() => {
+        setSeconds((prevSeconds) => prevSeconds - 1);
+      }, 1000);
+    }
+
+    return () => clearInterval(timer);
+  }, [isRunning]);
+
+  useEffect(() => {
+    if (isRunning) {
+      if(seconds === 0) {
+        setIsRunning(false);
+        console.log('next');
+        setCurrentWorkoutIndex(currentWorkoutIndex+1);
+        setSeconds(currentWorkoutExercises[currentWorkoutIndex].duration + currentWorkoutExercises[currentWorkoutIndex].rest);
+      }
+    }
+  }, [seconds]);
+
+  const handleToggleStart = () => {
+    if (isRunning) {
+      setIsRunning(false);
+    }else{
+      setIsRunning(true);
+    }
+  };
+
+  const handleReset = () => {
+    setIsRunning(false);
+    setSeconds(0);
+  };
+
+  const handlePreviousExercise = () => {
+    setIsRunning(false);
+    console.log('handleNextExercise');
+    setCurrentWorkoutIndex(currentWorkoutIndex-1);
+    setSeconds(currentWorkoutExercises[currentWorkoutIndex].duration + currentWorkoutExercises[currentWorkoutIndex].rest);
+  };
+
+  const handleNextExercise = () => {
+    setIsRunning(false);
+    console.log('handleNextExercise');
+    setCurrentWorkoutIndex(currentWorkoutIndex+1);
+    setSeconds(currentWorkoutExercises[currentWorkoutIndex].duration + currentWorkoutExercises[currentWorkoutIndex].rest);
+  };
+
+  const createWorkoutPlan = (exercises) => {
+    const workout = [];
+    for (const item of exercises) {
+      for (let index = 0; index < item.sets-1; index++) {
+        const currentWeight = calculateSetWeight(parseInt(index + 1), parseInt(item.sets), item.weight, item.style);
+        const currentReps = calculateSetReps(parseInt(index + 1), parseInt(item.sets), parseInt(item.reps), item.style);
+        const exercise = {
+          name: item.name,
+          set: index + 1 ,
+          reps: currentReps,
+          weight: (Math.floor(currentWeight) !== 0) ? currentWeight + 'kg' : 'BW',
+          duration: Math.ceil(currentReps * 2.5),
+          rest: Math.ceil(parseInt(item.rest) * 60)
+        }
+        workout.push(exercise);
+      }
+    }
+    setCurrentWorkoutExercises(workout);
+  }
 
   const findExercisesForWorkout = (array, targetName) => {
     for (const [index, value] of array.entries()) {
@@ -70,11 +160,10 @@ function Session() {
   function displayWorkout( exerciseList ) {
     return (
       <>
-
         {exerciseList.length > 0 ? (
           <>
             {exerciseList.map((exercise, index) => (
-              <div key={index} style={{width: '100%', marginBottom: '1rem'}}>
+              <div key={index} style={{width: '100%', marginTop: '1rem'}}>
                 <h3 style={{marginBottom: '0.5rem'}}>
                   {exercise.name}
                   <small>
@@ -128,6 +217,80 @@ function Session() {
     );
   }
 
+  function displayCurrentExercise() {
+    if(currentWorkoutExercises.length > 0) {
+      const currentExercise = currentWorkoutExercises[currentWorkoutIndex];
+      // console.log('steve', currentExercise);
+
+      var statusClass = '';
+      if(isRunning) {
+        statusClass = (seconds <= currentWorkoutExercises[currentWorkoutIndex].rest) ? 'resting' : 'lifting'
+      }
+
+      var statusLabel = '';
+      switch(statusClass) {
+        case 'lifting':
+          statusLabel = 'Lift';
+        break;
+        case 'resting':
+          statusLabel = 'Now Rest';
+        break;
+        default:
+          statusLabel = 'Waiting to Start';
+      }
+
+      return (
+        <div class="session-wrapper">
+          <div className={
+            'session-counter ' + statusClass
+          }>
+            <div>
+              <span>{seconds}</span>
+              <span>{statusLabel}</span>
+            </div>
+          </div>
+          <div className='session-exercise-name'>{currentExercise.name}</div>
+
+          <div className='session-attributes'>
+            <div className='session-attribute'>
+              <span>Set</span>
+              <span>{currentExercise.set}</span>
+            </div>
+            <div className='session-attribute'>
+              <span>Reps</span>
+              <span>{currentExercise.reps}</span>
+            </div>
+            <div className='session-attribute'>
+              <span>Weight</span>
+              <span>{currentExercise.weight}</span>
+            </div>
+            <div className='session-attribute'>
+              <span>Lift</span>
+              <span>{currentExercise.duration}s</span>
+            </div>
+            <div className='session-attribute'>
+              <span>Rest</span>
+              <span>{currentExercise.rest}s</span>
+            </div>
+          </div>
+
+          <button className="btn btn-primary" onClick={handleToggleStart}>{(isRunning) ? 'Pause' : 'Start'}</button>
+
+          <div className='session-controls'>
+            {(currentWorkoutIndex > 0) && (
+              <button className="btn" onClick={handlePreviousExercise}>Prev</button>
+            )}
+
+            {(currentWorkoutIndex < currentWorkoutExercises.length - 1) && (
+              <button className="btn" onClick={handleNextExercise}>Next</button>
+            )}
+          </div>
+
+        </div>
+      );
+    }
+  }
+
   return (
     <>
       <h1 className="pageTitle">{workoutId}</h1>
@@ -135,6 +298,12 @@ function Session() {
         <Link to={'/workouts/' + workoutId} className="btn btn-small" style={{margin: '0 0 2rem'}}>
           <FaPen className="btnIcon" /> Edit Workout
         </Link>
+
+        {displayCurrentExercise()}
+
+        <hr/>
+
+        <h2 style={{margin: '0'}}>Full Workout</h2>
         {displayWorkout(exerciseList)}
       </div>
     </>

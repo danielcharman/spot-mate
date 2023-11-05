@@ -7,6 +7,7 @@ function Settings() {
   // const { jsonToCSV } = usePapaParse();
 
   const fileInputRef = useRef(null);
+  const exportJsonRef = useRef(null);
 
   const [importData, setImportData] = useState('');
   const [exportData, setExportData] = useState([]);
@@ -84,6 +85,16 @@ function Settings() {
     }
     return jsonData
   }
+
+  // Function to copy the textarea content to the clipboard
+  const copyToClipboard = () => {
+    if (exportJsonRef.current) {
+      // Select the text in the textarea
+      exportJsonRef.current.select();
+      // Copy the selected text to the clipboard
+      document.execCommand('copy');
+    }
+  };
 
   const handleInputChange = (e) => {
     const { value } = e.target;
@@ -187,12 +198,16 @@ function Settings() {
             <textarea
               className="formControl"
               name="export"
+              ref={exportJsonRef}
               value={JSON.stringify(exportData)}
               required={true}
               // readOnly={true}
               style={{height: '15vh', fontFamily: 'monospace'}}
             ></textarea>
           </div>
+          <button className="btn btn-primary" type="button" onClick={copyToClipboard} style={{flexBasis: '100%'}}>
+            Copy to Clipboard
+          </button>
 
           <hr/>
 
