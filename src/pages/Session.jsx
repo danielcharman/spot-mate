@@ -33,17 +33,12 @@ function Session() {
   }, []);
 
   function forceSafariPlayAudio() {
-    alert('touch start');
-
-
+    //hacky way of auto playing audio
     setTimeout(function() {
-
       audioElement.play()
       audioElement.pause()
       audioElement.currentTime = 0
-
     }, 2000)
-
 
     window.removeEventListener('touchstart', forceSafariPlayAudio, false);
   }
