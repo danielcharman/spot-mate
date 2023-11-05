@@ -71,8 +71,10 @@ function Session() {
     if (isRunning) {
       if(seconds == currentWorkoutExercises[currentWorkoutIndex].rest) {
         playRestingSound();
-      }else if(seconds > currentWorkoutExercises[currentWorkoutIndex].rest) {
-        playLiftingSound();
+      }else{
+        if(seconds % 2 !== 0) {
+          playLiftingSound();
+        }
       }
 
       if(seconds === 0) {
@@ -83,6 +85,12 @@ function Session() {
       }
     }
   }, [seconds]);
+
+  const playStartSound = () => {
+    audioElement.src = '/audio/start.mp3';
+    audioElement.load();
+    audioElement.play();
+  };
 
   const playLiftingSound = () => {
     audioElement.src = '/audio/lift.mp3';
@@ -107,7 +115,7 @@ function Session() {
       setIsRunning(false);
     }else{
       setIsRunning(true);
-      playLiftingSound();
+      playStartSound();
     }
   };
 
@@ -139,7 +147,7 @@ function Session() {
           set: index + 1 ,
           reps: currentReps,
           weight: (Math.floor(currentWeight) !== 0) ? currentWeight + 'kg' : 'BW',
-          duration: Math.ceil(currentReps * 2.5),
+          duration: Math.ceil(currentReps * 2),
           rest: Math.ceil(parseInt(item.rest) * 60)
         }
         workout.push(exercise);
