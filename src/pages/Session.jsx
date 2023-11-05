@@ -17,12 +17,26 @@ function Session() {
   const [audioElement] = useState(new Audio());
 
   useEffect(() => {
+    // Add the 'touchstart' event listener
+    window.addEventListener('touchstart', forceSafariPlayAudio, false);
+
     const storedExerciseList = JSON.parse(localStorage.getItem('workouts'));
     if (storedExerciseList) {
       const storedWorkout = findExercisesForWorkout(storedExerciseList, workoutId);
       setExerciseList(storedWorkout.exercises);
     }
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('touchstart', forceSafariPlayAudio, false);
+    };
   }, []);
+
+  function forceSafariPlayAudio() {
+    alert('touch start');
+    // audioElement.load(); // iOS 9   还需要额外的 load 一下, 否则直接 play 无效
+    // audioElement.play(); // iOS 7/8 仅需要 play 一下
+  }
 
   useEffect(() => {
     if (exerciseList) {
@@ -91,7 +105,6 @@ function Session() {
   };
 
   const handleToggleStart = () => {
-    audioElement.autoplay = true;
     audioElement.play();
 
     if (isRunning) {
