@@ -16,10 +16,10 @@ function ExerciseList({ exerciseList, onEdit, onDelete, onReorder }) {
           {exerciseList.map((exercise, index) => (
             <tr key={index}>
               <td style={{textAlign: 'left'}}>
-                <b>{exercise.name}</b><br/>
+                <b>{exercise.name}</b>
                 <small>{exercise.sets} sets | {exercise.reps} reps | {exercise.rest}mins | {exercise.style} | {(exercise.weight !== 0) ? exercise.weight + 'kg' : 'BW'}</small>
               </td>
-              <td style={{width: '10rem'}}>
+              <td style={{width: '8rem'}}>
                 <div className="btnGroup">
                   {(index > 0) ?
                       (
@@ -37,7 +37,7 @@ function ExerciseList({ exerciseList, onEdit, onDelete, onReorder }) {
                       )
                     : ''
                   }
-                  <button className="btn btn-success" onClick={() => onEdit(index)}>
+                  <button className="btn btn-primary" onClick={() => onEdit(index)}>
                     <FaPen className="btnIcon" />
                   </button>
                   <button className="btn btn-danger" onClick={() => onDelete(index)}>

@@ -29,6 +29,21 @@ function Settings() {
     getExportData();
   };
 
+  const handleDefaultImport = (e) => {
+    e.preventDefault();
+
+    fetch('/sample/export.json')
+    .then(response => response.json())
+    .then(data => {
+      localStorage.setItem('workouts', JSON.stringify(data, null, 2));
+      setImportData('');
+      getExportData();
+    })
+    .catch(error => {
+      this.setState({ error });
+    });
+  };
+
   return (
     <>
       <h1 className="pageTitle">Settings</h1>
@@ -57,11 +72,11 @@ function Settings() {
               style={{height: '25vh', fontFamily: 'monospace'}}
             ></textarea>
           </div>
-          <button className="btn btn-success" type="submit" style={{flexBasis: '100%'}}>
-            Import
+          <button className="btn btn-danger" type="submit" style={{flexBasis: '100%'}}>
+            Import Json
           </button>
-          <a href="/sample/export.json" target="_blank" className="btn" style={{flexBasis: '100%'}}>
-            View Default
+          <a onClick={handleDefaultImport} className="btn btn-danger" style={{flexBasis: '100%'}}>
+            Load Sample Workouts
           </a>
         </form>
       </div>

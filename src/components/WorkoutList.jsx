@@ -17,12 +17,12 @@ function WorkoutList({ workoutList, onEdit, onDelete }) {
           {workoutList.map((workout, index) => (
             <tr key={index}>
               <td style={{textAlign: 'left'}}><b>{workout.name}</b></td>
-              <td style={{width: '9rem'}}>
+              <td style={{width: '6rem'}}>
                 <div className="btnGroup">
-                  <Link to={'/workouts/' + workout.name + '/session'} className="btn btn-info">
+                  <Link to={'/workouts/' + workout.name + '/session'} className="btn btn-primary">
                     <FaPlay className="btnIcon" />
                   </Link>
-                  <Link to={'/workouts/' + workout.name} className="btn btn-success">
+                  <Link to={'/workouts/' + workout.name} className="btn btn-primary">
                     <FaPen className="btnIcon" />
                   </Link>
                   <button className="btn btn-danger" onClick={() => onDelete(index)}>
