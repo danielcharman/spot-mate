@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import WorkoutList from '../components/WorkoutList'
+import {toast} from 'react-toastify'
 
 function Workouts() {
   //define form data
@@ -49,10 +50,12 @@ function Workouts() {
       updatedList = [...workoutList];
       updatedList[editIndex] = workoutData;
       setWorkoutList(updatedList);
+      toast('Workout updated!', { theme: 'dark' });
     } else {
       // Add new workout
       updatedList = [...workoutList, workoutData];
       setWorkoutList(updatedList);
+      toast('Workout created!', { theme: 'dark' });
     }
 
     localStorage.setItem('workouts', JSON.stringify(updatedList));
@@ -75,6 +78,7 @@ function Workouts() {
     const updatedList = workoutList.filter((_, i) => i !== index);
     setWorkoutList(updatedList);
     localStorage.setItem('workouts', JSON.stringify(updatedList));
+    toast('Workout deleted!', { theme: 'dark' });
   };
 
   return (

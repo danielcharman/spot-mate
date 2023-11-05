@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import ExerciseList from '../components/ExerciseList'
 import { Link } from 'react-router-dom'
 import { FaPlay } from 'react-icons/fa'
+import {toast} from 'react-toastify'
 
 function Workout() {
   let { workoutId } = useParams();
@@ -75,10 +76,12 @@ function Workout() {
       updatedList = [...exerciseList];
       updatedList[editIndex] = exerciseData;
       setExerciseList(updatedList);
+      toast('Exercise updated!', { theme: 'dark' });
     } else {
       // Add new exercise
       updatedList = [...exerciseList, exerciseData];
       setExerciseList(updatedList);
+      toast('Exercise created!', { theme: 'dark' });
     }
 
     storeWorkoutExerciseData(updatedList);
@@ -114,6 +117,7 @@ function Workout() {
     const updatedList = exerciseList.filter((_, i) => i !== index);
     setExerciseList(updatedList);
     storeWorkoutExerciseData(updatedList);
+    toast('Exercise deleted!', { theme: 'dark' });
   };
 
   const handleReorder = (index, newIndex) => {

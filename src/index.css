@@ -6,6 +6,7 @@
 	--light-red: #dc3545;
 	--light-grey: #eee;
 	--coal: #343a40;
+  --toastify-color-progress-dark: #007bff;
 }
 
 #root {
@@ -72,6 +73,14 @@ h2 small,
 h3 small {
 	display: block;
   font-weight: initial;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
+  padding: 0;
+  margin: 2rem 0;
 }
 
 .container {
@@ -237,6 +246,7 @@ h3 small {
 
 .formGroup {
   flex-basis: 100%;
+  width: 100%;
   /* margin-bottom: 0.5rem; */
 }
 
@@ -248,6 +258,10 @@ h3 small {
   font-family: inherit;
   border-radius: 0.5rem;
 	width: 100%;
+}
+
+.form .btn {
+  width: 100%;
 }
 
 select {
