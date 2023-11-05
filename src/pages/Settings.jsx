@@ -1,11 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import Papa from 'papaparse';
-// import { usePapaParse } from 'react-papaparse';
 import {toast} from 'react-toastify'
 
 function Settings() {
-  // const { jsonToCSV } = usePapaParse();
-
   const fileInputRef = useRef(null);
   const exportJsonRef = useRef(null);
 
@@ -179,7 +176,7 @@ function Settings() {
       setImportData('');
       getExportData();
 
-      toast('Imported defaults successfully!', { theme: 'dark' });
+      toast('Loaded Sample Program successfully!', { theme: 'dark' });
     })
     .catch(error => {
       this.setState({ error });
@@ -191,6 +188,13 @@ function Settings() {
       <h1 className="pageTitle">Settings</h1>
       <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
         <form className="form" onSubmit={handleSubmit} style={{flexDirection: 'column'}}>
+          <h3 style={{margin: '0'}}>Load Sample Program</h3>
+          <p>Don't know how to get started? Load the sample program and adjust it to suit your needs.</p>
+          <a onClick={handleDefaultImport} className="btn btn-danger" style={{flexBasis: '100%'}}>
+            Load Sample Program
+          </a>
+
+          <hr/>
 
           <h3 style={{margin: 0}}>Export JSON</h3>
           <p>Copy and store your program in a safe place.</p>
@@ -251,14 +255,6 @@ function Settings() {
               onChange={handleFileChange}
             />
           </div>
-
-          <hr/>
-
-          <h3 style={{margin: '0'}}>Load Sample Workout</h3>
-          <p>Don't know how to get started? Load the default program and adjust it to suit your needs.</p>
-          <a onClick={handleDefaultImport} className="btn btn-danger" style={{flexBasis: '100%'}}>
-            Load Sample Workouts
-          </a>
         </form>
       </div>
     </>

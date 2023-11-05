@@ -4,15 +4,9 @@ import { Link } from 'react-router-dom'
 function WorkoutList({ workoutList, onEdit, onDelete }) {
   workoutList.sort((a, b) => a.name.localeCompare(b.name));
   return (
-    <table className="table">
-      {/* <thead>
-        <tr>
-          <th style={{textAlign: 'left'}}>Workout Name</th>
-          <th style={{width: '7rem'}}></th>
-        </tr>
-      </thead> */}
-
+    <>
       {workoutList.length > 0 ? (
+        <table className="table">
         <tbody>
           {workoutList.map((workout, index) => (
             <tr key={index}>
@@ -33,15 +27,13 @@ function WorkoutList({ workoutList, onEdit, onDelete }) {
             </tr>
           ))}
         </tbody>
+        </table>
       ) : (
-        <tbody>
-          <tr>
-            <td colSpan="2">You haven't added any workouts yet.</td>
-          </tr>
-        </tbody>
+        <Link to={'/settings'} className="btn btn-primary" style={{width: '100%'}}>
+          Load Sample Program
+        </Link>
       )}
-
-    </table>
+    </>
   );
 }
 
