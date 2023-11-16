@@ -7,12 +7,12 @@ import {toast} from 'react-toastify'
 function Session() {
   let { workoutId } = useParams();
 
-  const [audioFiles, setaudioFiles] = useState({
-    start: '/audio/start.mp3',
-    timer: '/audio/lift.mp3',
-    rest: '/audio/rest.mp3',
-    complete: '/audio/complete.mp3',
-  });
+  // const [audioFiles, setaudioFiles] = useState({
+  //   start: '/audio/start.mp3',
+  //   timer: '/audio/lift.mp3',
+  //   rest: '/audio/rest.mp3',
+  //   complete: '/audio/complete.mp3',
+  // });
 
   const [exerciseList, setExerciseList] = useState([]);
 
@@ -23,11 +23,11 @@ function Session() {
   const [isRunning, setIsRunning] = useState(false);
   const [isStarting, setIsStarting] = useState(false);
 
-  const [audioElement] = useState(new Audio());
+  // const [audioElement] = useState(new Audio());
 
   useEffect(() => {
     // Add the 'touchstart' event listener
-    window.addEventListener('touchstart', forceSafariPlayAudio, false);
+    // window.addEventListener('touchstart', forceSafariPlayAudio, false);
 
     const storedExerciseList = JSON.parse(localStorage.getItem('workouts'));
     if (storedExerciseList) {
@@ -37,23 +37,23 @@ function Session() {
 
     // Clean up the event listener when the component unmounts
     return () => {
-      window.removeEventListener('touchstart', forceSafariPlayAudio, false);
+      // window.removeEventListener('touchstart', forceSafariPlayAudio, false);
     };
   }, []);
 
-  function forceSafariPlayAudio() {
-    //hacky way of auto playing audio
-    setTimeout(function() {
-      for (const [key, value] of Object.entries(audioFiles)) {
-        audioElement.src = value;
-        audioElement.play()
-        audioElement.pause()
-        audioElement.currentTime = 0
-      }
-    }, 500)
+  // function forceSafariPlayAudio() {
+  //   //hacky way of auto playing audio
+  //   setTimeout(function() {
+  //     for (const [key, value] of Object.entries(audioFiles)) {
+  //       audioElement.src = value;
+  //       audioElement.play()
+  //       audioElement.pause()
+  //       audioElement.currentTime = 0
+  //     }
+  //   }, 500)
 
-    window.removeEventListener('touchstart', forceSafariPlayAudio, false);
-  }
+  //   window.removeEventListener('touchstart', forceSafariPlayAudio, false);
+  // }
 
   useEffect(() => {
     if (exerciseList) {
@@ -81,13 +81,13 @@ function Session() {
 
   useEffect(() => {
     if (isRunning) {
-      playSound('timer');
+      // playSound('timer');
 
       if(seconds === 0) {
         setIsRunning(false);
         setCurrentWorkoutIndex(currentWorkoutIndex+1);
         setSeconds(currentWorkoutExercises[currentWorkoutIndex].rest);
-        playSound('complete');
+        // playSound('complete');
         toast('Rest complete. Get lifting!', { theme: 'dark', autoClose: 3000 });
 
         handleNextExercise()
@@ -95,27 +95,27 @@ function Session() {
     }
   }, [seconds]);
 
-  const playSound = (name) => {
-    audioElement.src = audioFiles[name];
-    audioElement.load();
-    audioElement.play();
-  };
+  // const playSound = (name) => {
+  //   audioElement.src = audioFiles[name];
+  //   audioElement.load();
+  //   audioElement.play();
+  // };
 
   const handleToggleStart = () => {
-    if (isRunning) {
-      handlePause()
-      toast('Workout paused...', { theme: 'dark', autoClose: 1000 });
-    }else{
+    if (!isRunning) {
+    //   handlePause()
+    //   toast('Workout paused...', { theme: 'dark', autoClose: 1000 });
+    // }else{
       setIsStarting(true);
       setIsStarting(false);
       handleStart()
-      toast('Rest and get ready for the next set!', { theme: 'dark', autoClose: 1000 });
+      toast('Starting rest. Get ready for the next set!', { theme: 'dark', autoClose: 1000 });
     }
   };
 
   const handleStart = () => {
     setIsRunning(true);
-    playSound('rest');
+    // playSound('rest');
   };
 
   const handlePause = () => {
@@ -271,12 +271,12 @@ function Session() {
           statusLabel = 'Now Rest';
         break;
         default:
-          statusLabel = 'Ready to rest?';
+          statusLabel = 'Start Rest';
       }
 
       return (
         <>
-          <div className={
+          <div onClick={handleToggleStart} className={
             'session-counter ' + statusClass
           }>
             <div>
@@ -284,9 +284,9 @@ function Session() {
               <span>{statusLabel}</span>
             </div>
           </div>
-          <div className='session-controls'>
+          {/* <div className='session-controls'>
           <button className={'btn ' + ((isRunning) ? 'btn-danger' : 'btn-success') + ((isStarting) ? ' btn-disabled' : '')} onClick={handleToggleStart} disabled={(isStarting) ? true : false}>{(isRunning) ? 'Pause' : 'Start'} Rest</button>
-          </div>
+          </div> */}
           <div className='session-controls'>
             {(currentWorkoutIndex > 0) && (
               <button className={'btn ' + ((isStarting) ? ' btn-disabled' : '')} onClick={handlePreviousExercise} disabled={(isStarting) ? true : false}>Prev</button>
