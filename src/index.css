@@ -454,13 +454,13 @@ select {
 .session-wrapper .session-attributes .session-attribute span:first-of-type {
   text-transform: uppercase;
   font-weight: 300;
-  font-size: 0.6rem;
+  font-size: 0.8rem;
   letter-spacing: 0.15rem;
-  color: rgba(0, 0, 0, 0.75);
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .session-wrapper .session-attributes .session-attribute span:last-of-type {
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
 }
 
@@ -518,4 +518,45 @@ select {
   width: 100%;
   margin-bottom: 0.5rem;
   flex: 1;
+}
+
+
+.div-table {
+  overflow: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.div-table-row {
+  /* border: 1px solid rgba(0, 0, 0, 0.3); */
+  width: 100%;
+  display: flex;
+  /* flex-wrap: nowrap; */
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.div-table-thead, .div-table-th, .div-table-td {
+  /* display: flex; */
+  padding: 0.5rem 1rem;
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  flex-basis: 25%;
+}
+
+.div-table-thead {
+  font-weight: 700;
+  font-size: 1rem;
+  flex: 1;
+  margin-top: 2rem;
+}
+
+.div-table-th {
+  font-weight: 700;
+}
+
+.div-table-th, .div-table-td {
+  flex-basis: 25%;
+  font-size: 0.85rem;
 }

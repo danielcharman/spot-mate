@@ -63,7 +63,7 @@ function Session() {
 
   useEffect(() => {
     if(currentWorkoutExercises.length > 0) {
-      setSeconds(currentWorkoutExercises[currentWorkoutIndex].duration + currentWorkoutExercises[currentWorkoutIndex].rest);
+      setSeconds(currentWorkoutExercises[currentWorkoutIndex].rest);
     }
   }, [ currentWorkoutExercises]);
 
@@ -81,24 +81,16 @@ function Session() {
 
   useEffect(() => {
     if (isRunning) {
-      if(seconds == currentWorkoutExercises[currentWorkoutIndex].rest) {
-        playSound('rest');
-        toast('Set complete! Rest and get ready for the next set!', { theme: 'dark', autoClose: 3000 });
-      }else if(seconds > currentWorkoutExercises[currentWorkoutIndex].rest) {
-        if(seconds % 2 !== 0) {
-          playSound('timer');
-        }
-      }
+      playSound('timer');
 
       if(seconds === 0) {
         setIsRunning(false);
         setCurrentWorkoutIndex(currentWorkoutIndex+1);
-        setSeconds(currentWorkoutExercises[currentWorkoutIndex].duration + currentWorkoutExercises[currentWorkoutIndex].rest);
+        setSeconds(currentWorkoutExercises[currentWorkoutIndex].rest);
         playSound('complete');
-        toast('Rest complete! Ready for more?', { theme: 'dark', autoClose: 3000 });
+        toast('Rest complete. Get lifting!', { theme: 'dark', autoClose: 3000 });
 
         handleNextExercise()
-        handleStart()
       }
     }
   }, [seconds]);
@@ -115,18 +107,15 @@ function Session() {
       toast('Workout paused...', { theme: 'dark', autoClose: 1000 });
     }else{
       setIsStarting(true);
-      toast('Workout starting in 10 seconds. Get ready...', { theme: 'dark', autoClose: 10000 });
-      setTimeout(function() {
-        setIsStarting(false);
-        handleStart()
-        toast('Workout started! Get lifting!', { theme: 'dark', autoClose: 1000 });
-      }, 10000)
+      setIsStarting(false);
+      handleStart()
+      toast('Rest and get ready for the next set!', { theme: 'dark', autoClose: 1000 });
     }
   };
 
   const handleStart = () => {
     setIsRunning(true);
-    playSound('start');
+    playSound('rest');
   };
 
   const handlePause = () => {
@@ -141,19 +130,19 @@ function Session() {
   const handlePreviousExercise = () => {
     setIsRunning(false);
     setCurrentWorkoutIndex(currentWorkoutIndex-1);
-    setSeconds(currentWorkoutExercises[currentWorkoutIndex].duration + currentWorkoutExercises[currentWorkoutIndex].rest);
+    setSeconds(currentWorkoutExercises[currentWorkoutIndex].rest);
   };
 
   const handleNextExercise = () => {
     setIsRunning(false);
     setCurrentWorkoutIndex(currentWorkoutIndex+1);
-    setSeconds(currentWorkoutExercises[currentWorkoutIndex].duration + currentWorkoutExercises[currentWorkoutIndex].rest);
+    setSeconds(currentWorkoutExercises[currentWorkoutIndex].rest);
   };
 
   const createWorkoutPlan = (exercises) => {
     const workout = [];
     for (const item of exercises) {
-      for (let index = 0; index < item.sets-1; index++) {
+      for (let index = 0; index < item.sets; index++) {
         const currentWeight = calculateSetWeight(parseInt(index + 1), parseInt(item.sets), item.weight, item.style);
         const currentReps = calculateSetReps(parseInt(index + 1), parseInt(item.sets), parseInt(item.reps), item.style);
         const exercise = {
@@ -161,7 +150,6 @@ function Session() {
           set: index + 1 ,
           reps: currentReps,
           weight: (Math.floor(currentWeight) !== 0) ? currentWeight + 'kg' : 'BW',
-          duration: Math.ceil(currentReps * 2),
           rest: Math.ceil(parseInt(item.rest) * 60)
         }
         workout.push(exercise);
@@ -221,56 +209,46 @@ function Session() {
   }
 
   function displayWorkout( exerciseList ) {
+    var currentItem = '';
     return (
       <>
         {exerciseList.length > 0 ? (
           <>
-            {exerciseList.map((exercise, index) => (
-              <div key={index} style={{width: '100%', marginTop: '1rem'}}>
-                <h3 style={{marginBottom: '0.5rem'}}>
-                  {exercise.name}
-                  <small>
-                    {exercise.rest}min rest | {exercise.style.replace(/\b\w/g, char => char.toUpperCase())} | Max {exercise.weight}kg
-                    </small>
-                </h3>
-                <div className="table-responsive">
-                  <table className="table" style={{textAlign: 'center', fontSize: '0.75rem'}}>
-                    <thead>
-                      <tr>
-                        <th>Set</th>
-                        {Array.from({ length: exercise.sets }, (value, index) => (
-                          <th key={index}>Set {index + 1}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th>Weight</th>
-                        {Array.from({ length: exercise.sets }, (value, index) => {
-                          const currentWeight = calculateSetWeight(parseInt(index + 1), parseInt(exercise.sets), exercise.weight, exercise.style);
-                          return (
-                            <td key={index}>
-                              {(Math.floor(currentWeight) !== 0) ? currentWeight + 'kg' : 'BW'}
-                            </td>
-                          )
-                        })}
-                      </tr>
-                      <tr>
-                        <th>Reps</th>
-                        {Array.from({ length: exercise.sets }, (value, index) => {
-                          const currentReps = calculateSetReps(parseInt(index + 1), parseInt(exercise.sets), parseInt(exercise.reps), exercise.style);
-                          return (
-                            <td key={index}>
-                              {currentReps}
-                            </td>
-                          )
-                        })}
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            ))}
+            <div className="div-table">
+              {exerciseList.map((exercise, index) => {
+                if(currentItem !== exercise.name) {
+                  currentItem = exercise.name;
+                  return (
+                    <div key={index} >
+                      <div className="div-table-row">
+                        <div className="div-table-thead">{exercise.name}</div>
+                      </div>
+                      <div className="div-table-row">
+                        <div className="div-table-th">Set</div>
+                        <div className="div-table-th">Reps</div>
+                        <div className="div-table-th">Weight</div>
+                        <div className="div-table-th">Rest</div>
+                      </div>
+                      <div className="div-table-row">
+                        <div className="div-table-td">{exercise.set}</div>
+                        <div className="div-table-td">{exercise.reps}</div>
+                        <div className="div-table-td">{exercise.weight}</div>
+                        <div className="div-table-td">{exercise.rest}s</div>
+                      </div>
+                    </div>
+                  )
+                }else{
+                  return (
+                    <div key={index} className="div-table-row">
+                      <div className="div-table-td">{exercise.set}</div>
+                      <div className="div-table-td">{exercise.reps}</div>
+                      <div className="div-table-td">{exercise.weight}</div>
+                      <div className="div-table-td">{exercise.rest}s</div>
+                    </div>
+                  )
+                }
+              })}
+            </div>
           </>
         ) : (
           <>You haven't added any exercises yet.</>
@@ -284,19 +262,16 @@ function Session() {
     if(currentWorkoutExercises.length > 0) {
       var statusClass = '';
       if(isRunning) {
-        statusClass = (seconds <= currentWorkoutExercises[currentWorkoutIndex].rest) ? 'resting' : 'lifting'
+        statusClass =  'resting'
       }
 
       var statusLabel = '';
       switch(statusClass) {
-        case 'lifting':
-          statusLabel = 'Lift';
-        break;
         case 'resting':
           statusLabel = 'Now Rest';
         break;
         default:
-          statusLabel = 'Waiting to Start';
+          statusLabel = 'Ready to rest?';
       }
 
       return (
@@ -310,7 +285,7 @@ function Session() {
             </div>
           </div>
           <div className='session-controls'>
-          <button className={'btn ' + ((isRunning) ? 'btn-danger' : 'btn-success') + ((isStarting) ? ' btn-disabled' : '')} onClick={handleToggleStart} disabled={(isStarting) ? true : false}>{(isRunning) ? 'Pause' : 'Start'}</button>
+          <button className={'btn ' + ((isRunning) ? 'btn-danger' : 'btn-success') + ((isStarting) ? ' btn-disabled' : '')} onClick={handleToggleStart} disabled={(isStarting) ? true : false}>{(isRunning) ? 'Pause' : 'Start'} Rest</button>
           </div>
           <div className='session-controls'>
             {(currentWorkoutIndex > 0) && (
@@ -348,10 +323,6 @@ function Session() {
               <span>{currentExercise.weight}</span>
             </div>
             <div className='session-attribute'>
-              <span>Lift</span>
-              <span>{currentExercise.duration}s</span>
-            </div>
-            <div className='session-attribute'>
               <span>Rest</span>
               <span>{currentExercise.rest}s</span>
             </div>
@@ -375,7 +346,7 @@ function Session() {
         {displayExercise(currentWorkoutIndex+1, false)}
         <hr/>
         <h2 style={{margin: '0'}}>Full Workout</h2>
-        {displayWorkout(exerciseList)}
+        {displayWorkout(currentWorkoutExercises)}
       </div>
     </>
   )
